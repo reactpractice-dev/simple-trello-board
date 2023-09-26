@@ -1,8 +1,15 @@
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 
-const AddCardButton = () => {
+const AddCardButton = ({ onAddCard }) => {
+  const [title, setTitle] = useState("");
   const [isAdding, setIsAdding] = useState(false);
+
+  const handleAddCard = () => {
+    onAddCard(title);
+    setTitle("");
+    setIsAdding(false);
+  };
 
   if (isAdding) {
     return (
@@ -10,9 +17,14 @@ const AddCardButton = () => {
         <textarea
           className="border border-gray-300  bg-slate-50 p-2 w-full rounded-lg"
           placeholder="Enter a title for this card ..."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <div className="flex items-center">
-          <button className="bg-blue-600 hover:bg-blue-700 py-1 px-2 text-white">
+          <button
+            className="bg-blue-600 hover:bg-blue-700 py-1 px-2 text-white"
+            onClick={handleAddCard}
+          >
             Add card
           </button>
           <button onClick={() => setIsAdding(false)}>
