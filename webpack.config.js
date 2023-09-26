@@ -15,6 +15,12 @@ module.exports = {
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
+      // css rules for tailwind
+      {
+        test: /\.css$/i,
+        include: path.resolve(__dirname, "src"),
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
     ],
   },
   // pass all js files through Babel
