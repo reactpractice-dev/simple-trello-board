@@ -8,11 +8,11 @@ const AddCardButton = ({ onAddCard }) => {
   const handleAddCard = () => {
     onAddCard(title);
     setTitle("");
-    setIsAdding(false);
   };
 
   const handleSubmitByPressingEnter = (e) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       handleAddCard();
     }
   };
@@ -20,7 +20,12 @@ const AddCardButton = ({ onAddCard }) => {
   if (isAdding) {
     return (
       <div className="p-2">
-        <form onSubmit={handleAddCard}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleAddCard();
+          }}
+        >
           <textarea
             className="border border-gray-300  bg-slate-50 p-2 w-full rounded-lg"
             placeholder="Enter a title for this card ..."

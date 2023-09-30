@@ -46,4 +46,22 @@ describe("Add card button", () => {
 
     expect(mockSave).toHaveBeenCalledWith("Hello trello");
   });
+
+  it("automatically switches back to adding another card after the previous one is saved", async () => {
+    const mockSave = jest.fn();
+    render(<AddCardButton onAddCard={mockSave} />);
+    await userEvent.click(screen.getByText(/Add a card/i));
+    await userEvent.type(
+      screen.getByPlaceholderText(/Enter a title for this card/),
+      "Hello trello"
+    );
+    await userEvent.click(screen.getByText(/Add card/i));
+    expect(mockSave).toHaveBeenCalledWith("Hello trello");
+
+    // check the form is still shown
+    expect(
+      screen.getByPlaceholderText(/Enter a title for this card/)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Add card/i)).toBeInTheDocument();
+  });
 });
