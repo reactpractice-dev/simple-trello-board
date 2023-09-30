@@ -1,5 +1,11 @@
-Basic React boilerplate.
+# Simple Trello board clone
 
-Useful when you just want to start coding some React component, but don't need the entire setup that CRA comes with.
+Boilerplate for building a simple Trello board clone.
 
-Follows steps outlined in [Creating a React app with Webpack](https://jsramblings.com/creating-a-react-app-with-webpack/).
+- only has one board with three columns - To do, Doing, Done
+- users can add, edit, remove cards
+- users can drag and drop cards across column
+
+Boilerplate uses Tailwind for styling.
+
+

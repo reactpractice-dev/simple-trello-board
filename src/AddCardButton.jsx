@@ -11,26 +11,36 @@ const AddCardButton = ({ onAddCard }) => {
     setIsAdding(false);
   };
 
+  const handleSubmitByPressingEnter = (e) => {
+    if (e.key === "Enter") {
+      handleAddCard();
+    }
+  };
+
   if (isAdding) {
     return (
       <div className="p-2">
-        <textarea
-          className="border border-gray-300  bg-slate-50 p-2 w-full rounded-lg"
-          placeholder="Enter a title for this card ..."
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <div className="flex items-center">
-          <button
-            className="bg-blue-600 hover:bg-blue-700 py-1 px-2 text-white"
-            onClick={handleAddCard}
-          >
-            Add card
-          </button>
-          <button onClick={() => setIsAdding(false)}>
-            <XMarkIcon className="h-6 w-6 text-gray-500" />
-          </button>
-        </div>
+        <form onSubmit={handleAddCard}>
+          <textarea
+            className="border border-gray-300  bg-slate-50 p-2 w-full rounded-lg"
+            placeholder="Enter a title for this card ..."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onKeyDown={handleSubmitByPressingEnter}
+            autoFocus
+          />
+          <div className="flex items-center">
+            <button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 py-1 px-2 text-white"
+            >
+              Add card
+            </button>
+            <button onClick={() => setIsAdding(false)}>
+              <XMarkIcon className="h-6 w-6 text-gray-500" />
+            </button>
+          </div>
+        </form>
       </div>
     );
   }
