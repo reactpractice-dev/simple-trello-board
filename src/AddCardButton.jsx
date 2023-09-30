@@ -1,9 +1,10 @@
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const AddCardButton = ({ onAddCard }) => {
   const [title, setTitle] = useState("");
   const [isAdding, setIsAdding] = useState(false);
+  const cardFormRef = useRef(null);
 
   const handleAddCard = () => {
     onAddCard(title);
@@ -17,6 +18,20 @@ const AddCardButton = ({ onAddCard }) => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cardFormRef.current && !cardFormRef.current.contains(event.target)) {
+        // if the user clicked outside the card form
+        // hide the form
+        setIsAdding(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
+
   if (isAdding) {
     return (
       <div className="p-2">
@@ -25,6 +40,7 @@ const AddCardButton = ({ onAddCard }) => {
             e.preventDefault();
             handleAddCard();
           }}
+          ref={cardFormRef}
         >
           <textarea
             className="border border-gray-300  bg-slate-50 p-2 w-full rounded-lg"

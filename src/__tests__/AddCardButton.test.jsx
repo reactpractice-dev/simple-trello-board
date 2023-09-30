@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 describe("Add card button", () => {
   it("initially shows a button to add a card", () => {
     render(<AddCardButton />);
-    screen.debug();
     expect(
       screen.getByRole("button", { name: /Add a card/i })
     ).toBeInTheDocument();
@@ -63,5 +62,9 @@ describe("Add card button", () => {
       screen.getByPlaceholderText(/Enter a title for this card/)
     ).toBeInTheDocument();
     expect(screen.getByText(/Add card/i)).toBeInTheDocument();
+
+    // check that clicking outside hides it
+    await userEvent.click(document.body);
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
   });
 });
