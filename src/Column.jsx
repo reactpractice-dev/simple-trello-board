@@ -20,7 +20,11 @@ const Column = ({ title, cards, onAddCard }) => {
       <h3 className="p-5 font-semibold mb-0 pb-0">{title}</h3>
       <div className="p-2">
         {cards.map((card) => (
-          <Card card={card} onClick={() => setSelectedCard(card)} />
+          <Card
+            key={card.id}
+            card={card}
+            onClick={() => setSelectedCard(card)}
+          />
         ))}
       </div>
       <AddCardButton onAddCard={onAddCard} />

@@ -17,9 +17,9 @@ const Card = ({ card, onClick }) => {
       className="border border-gray-300 shadow  bg-slate-50 p-2 w-full rounded-lg mb-3 hover:bg-slate-200 cursor-pointer"
       ref={setNodeRef}
       style={style}
+      onClick={onClick}
       {...listeners}
       {...attributes}
-      onClick={onClick}
     >
       {card.title}
     </div>
