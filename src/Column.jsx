@@ -1,21 +1,26 @@
 import { useState } from "react";
 import AddCardButton from "./AddCardButton";
-import Modal from "./Modal";
 import CardDetailsModal from "./CardDetailsModal";
+import { useDroppable } from "@dnd-kit/core";
+import Card from "./Card";
 
 const Column = ({ title, cards, onAddCard }) => {
   const [selectedCard, setSelectedCard] = useState(null);
+  const { isOver, setNodeRef } = useDroppable({
+    id: `droppable-column-${title}`,
+    data: { status: title },
+  });
   return (
-    <div className="m-5 bg-slate-200 h-fit w-52 rounded-lg">
+    <div
+      className={`m-5 bg-slate-200 h-fit w-52 rounded-lg ${
+        isOver ? "bg-yellow-200" : ""
+      }`}
+      ref={setNodeRef}
+    >
       <h3 className="p-5 font-semibold mb-0 pb-0">{title}</h3>
       <div className="p-2">
         {cards.map((card) => (
-          <div
-            className="border border-gray-300 shadow  bg-slate-50 p-2 w-full rounded-lg mb-3 hover:bg-slate-200 cursor-pointer"
-            onClick={() => setSelectedCard(card)}
-          >
-            {card.title}
-          </div>
+          <Card card={card} onClick={() => setSelectedCard(card)} />
         ))}
       </div>
       <AddCardButton onAddCard={onAddCard} />
