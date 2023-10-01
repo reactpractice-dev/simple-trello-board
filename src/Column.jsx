@@ -6,7 +6,7 @@ const Column = ({ title, cards, onAddCard }) => {
       <h3 className="p-5 font-semibold mb-0 pb-0">{title}</h3>
       <div className="p-2">
         {cards.map((card) => (
-          <div className="border border-gray-300  bg-slate-50 p-2 w-full rounded-lg mb-3">
+          <div className="border border-gray-300 shadow  bg-slate-50 p-2 w-full rounded-lg mb-3 hover:bg-slate-200 cursor-pointer">
             {card.title}
           </div>
         ))}
